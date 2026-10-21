@@ -1,0 +1,30 @@
+# Cabeceras para permitir que esta página se incruste en un iframe.
+#
+# Por defecto muchos servidores envían "X-Frame-Options: SAMEORIGIN" o una
+# política CSP con "frame-ancestors", y eso impide que la página se muestre
+# dentro de un iframe de otro sitio (SharePoint, WordPress, intranet, etc.).
+#
+# Nota: las cabeceras NO se pueden fijar desde el HTML; se configuran aquí
+# (Apache) o en el archivo de configuración del servidor.
+
+<IfModule mod_headers.c>
+  # Quitar la cabecera que bloquea el incrustado (si el servidor la envía).
+  Header always unset X-Frame-Options
+
+  # Forma moderna de permitir el incrustado. Al existir "frame-ancestors",
+  # los navegadores ignoran "X-Frame-Options".
+  Header always set Content-Security-Policy "frame-ancestors *"
+
+  # Evita que el navegador interprete mal los tipos de archivo.
+  Header always set X-Content-Type-Options "nosniff"
+</IfModule>
+
+# Tipos MIME de los recursos usados por la página (imágenes, iconos, SVG).
+<IfModule mod_mime.c>
+  AddType image/svg+xml .svg
+  AddType image/x-icon .ico
+  AddType text/css .css
+  AddType application/javascript .js
+</IfModule>
+
+# Requiere que el servidor permita "AllowOverride All" (o "FileInfo") en esta carpeta.

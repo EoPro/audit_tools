@@ -1,0 +1,8 @@
+/*
+  Netlify / Cloudflare Pages: cabeceras que permiten el incrustado en un iframe.
+  Si tu hosting es Apache o IIS, usa .htaccess o web.config respectivamente.
+*/
+
+/*
+  Content-Security-Policy: frame-ancestors *
+*/
